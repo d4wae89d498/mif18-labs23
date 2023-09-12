@@ -1,7 +1,7 @@
-# MIF18-Lab TP2: Mémoire virtuelle
+# MIF18-Lab TP Mémoire virtuelle
 
   * Grégoire Pichon, Université Lyon 1, LIP [email](mailto:gregoire.pichon@univ-lyon1.fr)
-  * Version: 2022
+  * Version: 2023
 
 ## Description du TP
 
