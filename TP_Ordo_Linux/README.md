@@ -143,10 +143,9 @@ priorités fonctionnent.
 
 ## Step 4: thread versus processus
 
-* Par rapport à un processus mono-thread, comment le temps CPU est-il
-  réparti ? Vous pouvez par exemple comparer (en bindant sur le même
-  coeur) un processus mono-threadé qui fait une boucle infinie et un
-  processus multi-threadé où chaque thread fait une boucle infinie.
+* Comparez (en bindant sur le même coeur) un processus mono-threadé
+  qui fait une boucle infinie et un processus multi-threadé où chaque
+   thread fait une boucle infinie. Comment se répartissent-ils le temps CPU ?
 
 * Vous pouvez partir du fichier `ex2_bis.c` afin d'avoir une base de
   code qui créé les threads pour vous.
