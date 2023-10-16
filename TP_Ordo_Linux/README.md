@@ -136,7 +136,7 @@ priorités fonctionnent.
   de parser les fichiers générés par votre executable `ex3`. Vous
   utiliserez `python3 analyze_ex3.py` pour lancer les expériences
   (cela prendra du temps) et `python3 analyze_ex3.py parse` pour
-  parser et afficher les données.
+  parser et afficher les données. Si vous souhaitez automatiser autrement la génération des courbes autrement, libre à vous !
   
 * Qu'en concluez vous ?
 
