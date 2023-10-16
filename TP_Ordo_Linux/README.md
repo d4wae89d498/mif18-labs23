@@ -125,7 +125,7 @@ priorités fonctionnent.
 * Expliquez le comportement observé quand vous lancez une ou deux
   instances de ce programme (toujours sur le même processeur).
 
-* [Si vous avez le temps, sinon faites des tests "à la main"] Tracez
+* [Si vous avez le temps, sinon faites des tests "à la main" en séance pour avancer] Tracez
   un graphe montrant l'évolution de la _timeslice_ en fonction de la
   priorité. Avec deux instances du programme, vous ne jouerez qu'avec
   la priorité d'une des instances. Le code fourni dans le programme
