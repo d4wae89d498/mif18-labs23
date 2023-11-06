@@ -96,10 +96,9 @@ if __name__ == '__main__':
     parse = False
     if len(argv) == 2:
         if argv[1] == 'clean':
+            compute = False
             if os.path.isfile(finalfig):
                 remove('finalfig')
-        elif argv[1] == "lazy":
-            compute = False
         elif argv[1] == "parse":
             compute = False
             parse = True
