@@ -11,10 +11,10 @@
 /* Grégoire Pichon, 2022 */
 
 #define MS_DIFF(END, START) ((END.tv_sec - START.tv_sec) * 1000000\
-                + (END.tv_nsec - START.tv_nsec) / 1000)    
+	+ (END.tv_nsec - START.tv_nsec) / 1000)
 #define DEBUG 1
 
-// une bonne grosse variable globale pour être acsessible au handler du signal 
+// une bonne grosse variable globale pour être acsessible au handler du signal
 FILE* mylogfile;
 
 void ferme_proprement(int sig)
