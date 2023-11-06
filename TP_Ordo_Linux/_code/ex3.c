@@ -34,9 +34,9 @@ int main(int argc, char** argv)
 
     cur_pos = 0;
     if (argc == 1)
-        mylogfile=fopen("ex3_logfile.csv","w");
+        mylogfile = fopen("ex3_logfile.csv","w");
     else
-        mylogfile=fopen(argv[1],"w");
+        mylogfile = fopen(argv[1],"w");
     if (mylogfile == NULL)
     {
         printf("Cannot open file\n");
@@ -55,7 +55,7 @@ int main(int argc, char** argv)
     sigaction(SIGINT, NULL, &sa);
     sa.sa_handler = ferme_proprement;
     res = sigaction(SIGINT, &sa, NULL);
-    if (res==-1)
+    if (res == -1)
     {
         printf("installation du gestionnaire pour SIGKILL error");
         exit(EXIT_FAILURE);
@@ -70,18 +70,14 @@ int main(int argc, char** argv)
         {
             elapsed = MS_DIFF(tv[cur_pos], begin);
             if (DEBUG)
-            {
                 printf("I did not run during %8lu microseconds, I was elapsed\
                        during %lu microseconds\n", waiting, elapsed);
-            }
             fprintf(mylogfile,"%lu,%lu\n", waiting, elapsed);
             begin = tv[cur_pos];
         }
         cur_pos = !cur_pos;
     }
     if (DEBUG)
-    {
         printf("numbers are stored in the ex3...csv file\n");
-    }
     return (0);
 }
