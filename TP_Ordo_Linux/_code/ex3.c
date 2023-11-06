@@ -19,6 +19,7 @@ FILE* mylogfile;
 
 void ferme_proprement(int sig)
 {
+    (void) sig;
     fclose(mylogfile);
     printf("closed with success\n");
     exit(EXIT_SUCCESS);

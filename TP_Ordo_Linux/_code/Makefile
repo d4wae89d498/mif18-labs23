@@ -1,8 +1,8 @@
 ALLSRC_C=$(wildcard *.c)
 ALLCOMPILED_C=$(patsubst %.c,%.exe)
-CFLAGS= -Wall -pthread
+CFLAGS= -Wall -Werror -Wextra -pthread
 
-all: ex1.exe ex2.exe ex2_bis.exe ex3.exe  # ajouter pour les courbes
+all: ex1.exe ex1_bis.exe ex2.exe ex2_bis.exe ex3.exe  # ajouter pour les courbes
 
 %.exe : %.c
 	gcc  $(CFLAGS) $< -o $@
