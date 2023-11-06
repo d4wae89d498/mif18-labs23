@@ -11,24 +11,21 @@
 /* Grégoire Pichon, 2022 */
 
 #define NB_CALLS 100000
-#define MS_DIFF(END, START) ((END.tv_sec - START.tv_sec) * 1000000\
-	+ (END.tv_nsec - START.tv_nsec) / 1000)
+#define MS_DIFF(END, START) ((END.tv_sec - START.tv_sec) * 1000000 + (END.tv_nsec - START.tv_nsec) / 1000)
 #define MAX_THREADS 256
 
 void *work(void *useless)
 {
-	unsigned long	elapsed_time;
-	struct timespec	start, end;
+	unsigned long elapsed_time;
+	struct timespec start, end;
+
 	while (1)
 	{
-
-		gettimeofday(&start, NULL);
-
-		// TODO : boucle qui effectue NB_CALLS appels à sched_yield
-		// (3 lignes)
-
-		gettimeofday(&end, NULL);
-
+		clock_gettime(CLOCK_MONOTONIC, &start);
+		y = 0;
+		while (++y <= NB_CALLS)
+			sched_yield();
+		clock_gettime(CLOCK_MONOTONIC, &end);
 		elapsed_time = MS_DIFF(end, start);
 		printf("Calling 100 000 sched_yield() took %8lu microseconds id %d\n", elapsed_time, syscall(SYS_gettid));
 	}
@@ -37,9 +34,10 @@ void *work(void *useless)
 
 int main(int ac, char **av)
 {
-	int			i;
-	int			nb;
-	pthread_t	t[MAX_THREADS]
+	int i;
+	int nb;
+	pthread_t t[MAX_THREADS];
+
 	if (ac != 2)
 	{
 		printf("Usage: %s [nb_threads]\n", av[0]);
