@@ -5,10 +5,12 @@
 #include <time.h>
 
 /*MIF18 : Lab 5 Linux Scheduling, ex2*/
-/* Grégoire Pichon, 2022 */ 
+/* Grégoire Pichon, 2022 */
 
 #define NB_CALLS 100000
 #define NB_LOOPS 10
+#define MS_DIFF(END, START) ((END.tv_sec - START.tv_sec) * 1000000\
+	+ (END.tv_nsec - START.tv_nsec) / 1000)
 
 int main(void)
 {
@@ -25,10 +27,9 @@ int main(void)
         clock_gettime(CLOCK_MONOTONIC, &start);
         y = 0;
         while (++y <= NB_CALLS)
-            sched_yield(); 
+            sched_yield();
         clock_gettime(CLOCK_MONOTONIC, &end);
-        elapsed_time = (end.tv_sec - start.tv_sec) * 1000000
-            + (end.tv_nsec - start.tv_nsec) / 1000; 
+        elapsed_time = MS_DIFF(end, start);
         printf("Calling %i sched_yield() took %lu microseconds\n", NB_CALLS,
                elapsed_time);
         // warning: total may overflow. Make sure NB_LOOPS is not too large.
