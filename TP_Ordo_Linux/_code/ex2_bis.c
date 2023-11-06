@@ -45,9 +45,9 @@ void *work(void *useless)
 
 int main(int ac, char **av)
 {
-    int i;
-    int nb;
-    pthread_t t[MAX_THREADS];
+    int			i;
+    int 		nb;
+    pthread_t	t[MAX_THREADS];
 
     if (ac != 2)
     {

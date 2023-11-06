@@ -10,7 +10,6 @@
 /*MIF18 : Lab 5 Linux Scheduling, ex2 version threads*/
 /* Grégoire Pichon, 2022 */
 
-#define NB_CALLS 100000
 #define MAX_THREADS 256
 #define US_DIFF(END, START) ((END.tv_sec - START.tv_sec) * 1000000\
     + (END.tv_nsec - START.tv_nsec) / 1000)
