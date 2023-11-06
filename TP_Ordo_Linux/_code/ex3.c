@@ -70,22 +70,29 @@ int main(int argc, char** argv){
     gettimeofday(&tv[cur_pos], NULL);
 
     //TODO: calculer waiting, le temps entre les deux derniers gettimeofday()
+    waiting = (tv[cur_pos].tv_sec - tv[!cur_pos].tv_sec) * ONE_MILLION
+        + (tv[cur_pos].tv_usec - tv[!cur_pos].tv_usec);
 
     /* Si le temps entre les deux appels est grand, le processus a été désordonnancé */
     if (waiting > 500){
 
+        
       //TODO: calculer elapsed, le temps pendant lequel le processus a tourné avant d'être désordonnancé
-      
+      elapsed = (tv[cur_pos].tv_sec - begin.tv_sec) * 1000000 // convertir les secondes en microsecondes
+          + (tv[cur_pos].tv_usec - begin.tv_usec);
+
       if (DEBUG){
 	printf("I did not run during %8lu microseconds, I was elapsed during %lu microseconds\n", waiting, elapsed);
       }
       fprintf(mylogfile,"%lu,%lu\n", waiting, elapsed);
 
       //TODO: mettre à jour begin pour sauvegarder quand les calculs ont repris
+      begin = tv[cur_pos];
+
     }
 
     /* Changement de position dans le tableau à deux éléments */
-    cur_pos = 1-cur_pos;
+    cur_pos = !cur_pos;
   }
 
   if (DEBUG) {

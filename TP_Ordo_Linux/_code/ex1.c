@@ -8,6 +8,7 @@
 /* Grégoire Pichon, 2022 */ 
 
 int main(){
-  // TODO : boucle infinie active
-  return 0;
+    while (1)
+        ;
+    return 0;
 }
