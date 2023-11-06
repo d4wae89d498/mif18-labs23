@@ -10,7 +10,7 @@
 /*MIF18 : Lab 5 Linux Scheduling, ex3*/
 /* Grégoire Pichon, 2022 */
 
-#define MS_DIFF(END, START) ((END.tv_sec - START.tv_sec) * 1000000\
+#define US_DIFF(END, START) ((END.tv_sec - START.tv_sec) * 1000000\
 	+ (END.tv_nsec - START.tv_nsec) / 1000)
 #define DEBUG 1
 
@@ -65,10 +65,10 @@ int main(int argc, char** argv)
     while (1)
     {
         clock_gettime(CLOCK_MONOTONIC, &tv[cur_pos]);
-        waiting = MS_DIFF(tv[cur_pos], tv[!cur_pos]);
+        waiting = US_DIFF(tv[cur_pos], tv[!cur_pos]);
         if (waiting > 500)
         {
-            elapsed = MS_DIFF(tv[cur_pos], begin);
+            elapsed = US_DIFF(tv[cur_pos], begin);
             if (DEBUG)
                 printf("I did not run during %8lu microseconds, I was elapsed\
                        during %lu microseconds\n", waiting, elapsed);

@@ -9,7 +9,7 @@
 
 #define NB_CALLS 100000
 #define NB_LOOPS 10
-#define MS_DIFF(END, START) ((END.tv_sec - START.tv_sec) * 1000000\
+#define US_DIFF(END, START) ((END.tv_sec - START.tv_sec) * 1000000\
 	+ (END.tv_nsec - START.tv_nsec) / 1000)
 
 int main(void)
@@ -29,7 +29,7 @@ int main(void)
         while (++y <= NB_CALLS)
             sched_yield();
         clock_gettime(CLOCK_MONOTONIC, &end);
-        elapsed_time = MS_DIFF(end, start);
+        elapsed_time = US_DIFF(end, start);
         printf("Calling %i sched_yield() took %lu microseconds\n", NB_CALLS,
                elapsed_time);
         // warning: total may overflow. Make sure NB_LOOPS is not too large.

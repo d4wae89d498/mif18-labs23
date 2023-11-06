@@ -11,7 +11,7 @@
 /* Grégoire Pichon, 2022 */
 
 #define NB_CALLS 100000
-#define MS_DIFF(END, START) ((END.tv_sec - START.tv_sec) * 1000000 + (END.tv_nsec - START.tv_nsec) / 1000)
+#define US_DIFF(END, START) ((END.tv_sec - START.tv_sec) * 1000000 + (END.tv_nsec - START.tv_nsec) / 1000)
 #define MAX_THREADS 256
 
 void *work(void *useless)
@@ -27,7 +27,7 @@ void *work(void *useless)
         while (++y <= NB_CALLS)
             sched_yield();
         clock_gettime(CLOCK_MONOTONIC, &end);
-        elapsed_time = MS_DIFF(end, start);
+        elapsed_time = US_DIFF(end, start);
         printf("Calling %i sched_yield() took %8lu microseconds id %lu\n",
                NB_CALLS, elapsed_time, syscall(SYS_gettid));
     }
