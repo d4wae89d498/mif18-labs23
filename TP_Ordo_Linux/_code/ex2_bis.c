@@ -13,7 +13,7 @@
 #define NB_CALLS 100000
 #define MAX_THREADS 256
 #define US_DIFF(END, START) ((END.tv_sec - START.tv_sec) * 1000000\
-    + (END.tv_nsec - START.tv_nsec) / 1000)
+                             + (END.tv_nsec - START.tv_nsec) / 1000)
 
 pthread_barrier_t start_barrier;
 
@@ -60,11 +60,11 @@ int main(int ac, char **av)
         printf("Error: MAX_THREADS=%i, given nb_threads=%i\n", MAX_THREADS, nb);
         exit(EXIT_FAILURE);
     }
-	pthread_barrier_init(&start_barrier, NULL, nb + 1);
+    pthread_barrier_init(&start_barrier, NULL, nb + 1);
     i = 0;
     while (++i <= nb)
         pthread_create(&t[i], NULL, &work, NULL);
-	pthread_barrier_wait(&start_barrier);
+    pthread_barrier_wait(&start_barrier);
     i = 0;
     while (++i <= nb)
         pthread_join(t[i], NULL);
