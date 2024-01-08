@@ -16,7 +16,6 @@
 #define NOT_STARTED	0
 #define RUNNING		1
 
-// Only for scheduler V2
 #define SAVE_CONTEXT()						\
   asm volatile (						\
 		"push	r0				\n\t"	\
@@ -106,12 +105,12 @@ void init_timer()
 
 void init_led_red(void)
 {
-  // TODO : red led on analog 0
+	DDRB |= 0b00100000;// Digital 13 "outputmode"
 }
 
 void init_led_yellow(void)
 {
-  // TODO : yellow led on analog 1
+	DDRB |= 0b00010000;// Digital 13 "outputmode"
 }
 
 void init_serial(void)
@@ -152,24 +151,21 @@ void task_serial(void)
 
 void task_led(void)
 {
-  // TODO : init, then blink red led (infinite loop)
+	PORTB ^= 0b00100000;
 }
 
 
-void task_lcd(void) 
+void task_lcd(void)
 {
   // TODO : init, and send a message (infinite loop)
 }
 
-
-/* SCHEDULER */
 typedef struct task_s {
   volatile uint8_t state;
-  void (*start)(void);//code for the task
-  volatile uint16_t stack_pointer;// only use in V2
+  void (*start)(void);
+  volatile uint16_t stack_pointer;
 } task_t;
 
-// The third element is not useful for V1
 static task_t tasks[] = {
   {NOT_STARTED, task_led, 0x500},
   {NOT_STARTED, task_serial, 0x700},
@@ -178,32 +174,48 @@ static task_t tasks[] = {
 
 #define NB_TASK (sizeof(tasks)/sizeof(tasks[0]))
 
+volatile uint8_t* taskStackPointers[NB_TASK];
+
+volatile uint8_t currentTask = 0;
+
+void switchContext() {
+    SAVE_CONTEXT();
+    taskStackPointers[currentTask] = (uint8_t*)SP;
+    currentTask = (currentTask + 1) % NB_TASK;
+    SP = (uint16_t)taskStackPointers[currentTask];
+    RESTORE_CONTEXT();
+}
+
+
 int int_counter = 0;
 volatile int second = 0;
 
 // The isr interruption implements the scheduling activity
 ISR(TIMER2_OVF_vect)
 {
-  static int current_task = 0 ;
-  PORTC ^= 2 ; // Yellow led blinks to show its activity
+  PORTC ^= 2 ;
+  // Yellow led blinks to show scheduling activity
 
   int_counter += 1;
-  if (int_counter == 20) { // around each 20ms, schedule a new task
+  if (int_counter == 20) {
     second+=1;
     int_counter = 0;
 
-    // TODO : implement the scheduler.
+	switchContext();
   }
 }
 
 int main(void)
 {
-  // Nothing to do.
-  init_led_yellow();// the yellow led blinks to show the sheduler activity.
+  init_led_yellow();
   init_timer() ;
   sei() ;
-  while(1) // waits the first task, and then not useful any more.
+  while(1)
     {
+		task_led();
+		_delay_ms(1000);
+				task_led();
+
     }
 
   return 0;

@@ -43,7 +43,7 @@ export LDFLAGS = -g $(TARGET_ARCH) -lm -Wl,--gc-sections #	-Os
 PGMER = -c arduino -b 57600 -P $(TERM)
 PGMERISP = -c arduino -b 115200 -P $(TERM)
 ARVDUDECONF= -C $(AVRDUDECONF_LOC)/avrdude.conf
-export DUDE = $(AVRDUDE_PATH)/avrdude -F -v -p $(MCU) $(AVRDUDECONF)
+export DUDE = avrdude -F -v -p $(MCU) $(AVRDUDECONF)
 
 
 ### OBJS
