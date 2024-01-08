@@ -8,8 +8,6 @@ comparé à la valeur se trouvant dans un registre. Si ils sont égaux,
 une interruption est générée. Le programme est alors dérouté pour
 exécuter la fonction correspondante et le compteur est réinitialisé.
 
-Un exemple http://www.avrbeginners.net/architecture/timers/timers.html
-
 
 # Interruptions en arduino?
 
